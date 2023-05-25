@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.example.proiect.food.FoodMenuActivity;
 import com.example.proiect.main.MainActivity;
 import com.example.proiect.location.MapsActivity;
 import com.example.proiect.R;
@@ -63,6 +64,10 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
                 overridePendingTransition(0,0);
                 break;
 
+            case R.id.nav_menu:
+                startActivity(new Intent(this, FoodMenuActivity.class));
+                overridePendingTransition(0,0);
+                break;
 
             default:
                 break;

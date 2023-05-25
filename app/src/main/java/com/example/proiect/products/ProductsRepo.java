@@ -1,5 +1,6 @@
 package com.example.proiect.products;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsRepo {
@@ -16,6 +17,7 @@ public class ProductsRepo {
     Product product10 = new Product(10, "The Skinny Pete Sundae", 400, 5.49);
 
     public ProductsRepo() {
+        products = new ArrayList<>();
         products.add(product1);
         products.add(product2);
         products.add(product3);

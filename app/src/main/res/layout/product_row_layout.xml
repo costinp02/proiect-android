@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/food_calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calories: 0"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:paddingStart="15dp"/>
+
+    <TextView
+        android:id="@+id/food_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price: $0"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:paddingStart="15dp"/>
+
+
+
+</LinearLayout>
