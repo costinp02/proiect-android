@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.proiect.NewsTilesFragment">
+        android:name="com.example.proiect.main.NewsTilesFragment">
 
     </androidx.fragment.app.FragmentContainerView>
 

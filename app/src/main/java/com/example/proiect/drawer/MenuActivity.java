@@ -1,8 +1,10 @@
-package com.example.proiect;
+package com.example.proiect.drawer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.proiect.R;
 
 public class MenuActivity extends AppCompatActivity {
 

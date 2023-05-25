@@ -1,4 +1,4 @@
-package com.example.proiect;
+package com.example.proiect.user;
 
 public class User {
     private int id;

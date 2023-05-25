@@ -1,4 +1,4 @@
-package com.example.proiect;
+package com.example.proiect.main;
 
 import android.os.Bundle;
 
@@ -6,12 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.proiect.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +32,7 @@ public class NewsTilesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     RecyclerView recyclerView;
-    String[] descriptions = {"Team", "New","location"};
+    String[] descriptions = {"Meet our team", "New box menu","New location"};
     int[] imagepngs = {R.drawable.team, R.drawable.new_menu, R.drawable.new_location};
 
     public NewsTilesFragment() {

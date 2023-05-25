@@ -44,7 +44,7 @@
             android:value="AIzaSyBtKKc6ejeMN9BKDrzMd1xj_Mc_HLbPyjo" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".location.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
@@ -55,21 +55,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".drawer.MenuActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DrawerBaseActivity"
+            android:name=".drawer.DrawerBaseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="false">
 
 

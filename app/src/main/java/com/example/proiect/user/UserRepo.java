@@ -1,4 +1,4 @@
-package com.example.proiect;
+package com.example.proiect.user;
 
 
 import java.util.ArrayList;

@@ -1,8 +1,9 @@
-package com.example.proiect;
+package com.example.proiect.location;
 
 import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.example.proiect.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
