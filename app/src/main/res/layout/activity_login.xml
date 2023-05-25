@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/login_edittext_background"
             android:hint="Your Email"
+            android:inputType="textEmailAddress"
             android:padding="16dp" />
 
         <TextView
@@ -66,6 +67,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/login_edittext_background"
             android:hint="Your Password"
+            android:inputType="textPassword"
             android:padding="16dp" />
 
         <androidx.appcompat.widget.AppCompatButton
