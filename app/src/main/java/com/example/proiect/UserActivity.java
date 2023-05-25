@@ -9,12 +9,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.proiect.databinding.ActivityUserBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class UserActivity extends DrawerBaseActivity {
 
     ActivityUserBinding activityUserBinding;
     SharedPreferences sharedPreferences;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
     String loginType;
     TextView userNameTextView;
     Button logoutButton;
@@ -33,21 +43,31 @@ public class UserActivity extends DrawerBaseActivity {
         userNameTextView = findViewById(R.id.user_name_textview);
         logoutButton = findViewById(R.id.logout_button);
         sharedPreferences = getApplicationContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
-//        Log.e("ALL PREF", sharedPreferences.getAll().toString());
+
+        gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this, gso);
 
         loginType = sharedPreferences.getString("login","");
         String userEmail = sharedPreferences.getString("email", "");
-        Log.d("LOGIN EMAIL", userEmail);
+//        Log.d("LOGIN EMAIL", userEmail);
         userRepo = new UserRepo();
 
         switch (loginType){
             case "local":
 
-                Log.i("USEREMAIL", userEmail);
+//                Log.i("USEREMAIL", userEmail);
                 for(User user: userRepo.users){
                     if(user.getEmail().equals(userEmail)){
                         userNameTextView.setText("Hi,\n" + user.getUsername());
                     }
+                }
+                break;
+
+            case "google":
+                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+                if(account != null){
+                    String userName = account.getDisplayName();
+                    userNameTextView.setText(userName);
                 }
                 break;
 
@@ -65,17 +85,39 @@ public class UserActivity extends DrawerBaseActivity {
 
     public void Logout() {
 
-            if (sharedPreferences == null)
-                sharedPreferences = getApplicationContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
 
-            SharedPreferences.Editor shpEditor = sharedPreferences.edit();
-            shpEditor.putString("email", "");
-            shpEditor.putString("login", "");
-            shpEditor.commit();
+        switch (loginType){
+            case "local":
+                if (sharedPreferences == null)
+                    sharedPreferences = getApplicationContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
 
-            Intent i = new Intent(UserActivity.this, LoginActivity.class);
-            startActivity(i);
-            finish();
+                SharedPreferences.Editor shpEditor = sharedPreferences.edit();
+                shpEditor.putString("email", "");
+                shpEditor.putString("login", "");
+                shpEditor.commit();
+
+                Intent i = new Intent(UserActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+                break;
+
+            case "google":
+                gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete( Task<Void> task) {
+                        if (sharedPreferences == null)
+                            sharedPreferences = getApplicationContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
+
+                        SharedPreferences.Editor shpEditor = sharedPreferences.edit();
+                        shpEditor.putString("login", "");
+                        shpEditor.commit();
+                        finish();
+                        startActivity(new Intent(UserActivity.this, LoginActivity.class));
+                    }
+                });
+
+        }
+
 
     }
 }

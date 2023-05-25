@@ -99,7 +99,7 @@
             android:textAlignment="center"/>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/google_login_imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"

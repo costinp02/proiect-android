@@ -1,5 +1,6 @@
 package com.example.proiect;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,14 +13,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText userEmail, userPass;
     private Button submitBttn;
-    private ImageView googleLogin;
+    private ImageView googleLoginImage;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
     SharedPreferences sharedPreferences;
-//    ArrayList<User> users = new ArrayList<>();
     UserRepo userRepo = new UserRepo();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,15 @@ public class LoginActivity extends AppCompatActivity {
         userEmail = findViewById(R.id.login_edittext_email);
         userPass = findViewById(R.id.login_edittext_password);
         submitBttn = findViewById(R.id.login_button);
+        googleLoginImage = (ImageView) findViewById(R.id.google_login_imageView);
+        gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this, gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account != null){
+            navigateToSecondActivity();
+        }
 
         sharedPreferences = getSharedPreferences("myPreferences", 0);
         CheckLogin();
@@ -44,8 +62,29 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        googleLoginImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signInIntent = gsc.getSignInIntent();
+                startActivityForResult(signInIntent, 1000);
+            }
+        });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+                navigateToSecondActivity();
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     public void CheckLogin() {
         if (sharedPreferences == null)
@@ -85,6 +124,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    void navigateToSecondActivity(){
+        if (sharedPreferences == null)
+            sharedPreferences = getApplicationContext().getSharedPreferences("myPreferences", 0);
 
+        SharedPreferences.Editor shpEditor = sharedPreferences.edit();
+        shpEditor.putString("login","google");
+        shpEditor.commit();
+        finish();
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(intent);
+    }
 
 }
