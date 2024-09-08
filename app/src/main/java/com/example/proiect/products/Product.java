@@ -1,6 +1,12 @@
 package com.example.proiect.products;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Product {
+    @PrimaryKey
     private int id;
     private String name;
     private int calories;
